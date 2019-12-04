@@ -10,13 +10,14 @@ Lammps ZTC for education (windows 10 (64 bit))
 3. ディフォルトの設定のまま最後まで進めばよい
 以上で lammps のダウンロードと設定は完了です
 
-□ 描画ソフト（gnuplotとOvito）
+・描画ソフト（gnuplotとOvito）
   gnuplotとOvitoについてはweb上に有益な情報が豊富にありますので、お手数をおかけしますが、そちらをご参照ください
 ------------------------------------------------------------------------------
 ■ 分子動力学シミュレーション
 
 □ 入力ファイルのダウンロード
-  by-student-2017 (https://github.com/by-student-2017?tab=repositories)の lammps_education_ch_win から入力ファイルをダウンロードして解凍する
+  by-student-2017 の lammps_education_ch_win (https://github.com/by-student-2017/lammps_education_ch_win) から入力ファイルをダウンロードして解凍する。
+  右側の[Clone or download]をクリックしていただくと、Download ZIP が表示されます
   
 □ シミュレーションの実行
 1. 各種のフォルダの中にあるrun.batをダブルクリックすれば計算が走る
@@ -62,7 +63,7 @@ Lammps ZTC for education (windows 10 (64 bit))
   log.lammpsファイルの最後の方に、粘性率（average viscosity）が記載されています。温度（K,）の後に記載されているのは数密度（Number density）です。log.lammpsでStep数が増えていくと、"v_pxy v_pxz v_pyz v_v11 v_v22 v_v33"はおおむね一定の値になっているかも確認してみてください
 ※ これは定性的または半定量的な粘性率の評価として利用されます
 
-※ 炭素と水素と酸素で計算したい場合は、reaxFFを用いると可能になる。ポテンシャルのファイルの情報は、NIST（https://www.ctcms.nist.gov/potentials/system/C/#C-H-O）に記載されている。NISTに計算されているポテンシャルを用いて、上記の入力ファイルを書きかえればC-H-OだけでなくC-SiやC-Cu, C-Fe, B-C-Nといった元素の組み合わせでも定性的または半定量的な予測が可能になる。
+・ 炭素と水素と酸素で計算したい場合は、reaxFFを用いると可能になる。ポテンシャルのファイルの情報は、NIST（https://www.ctcms.nist.gov/potentials/system/C/#C-H-O）に記載されている。NISTに計算されているポテンシャルを用いて、上記の入力ファイルを書きかえればC-H-OだけでなくC-SiやC-Cu, C-Fe, B-C-Nといった元素の組み合わせでも定性的または半定量的な予測が可能になる。
 ------------------------------------------------------------------------------
 
 
