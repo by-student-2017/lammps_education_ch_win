@@ -1,0 +1,61 @@
+# sample surface deposition script for atoms
+clear
+
+units        metal
+atom_style   charge
+boundary     p p f
+
+timestep     0.002
+
+lattice      fcc 3.61496
+region       box block 0 5 0 5 0 10
+create_box   2 box
+
+region       substrate block INF INF INF INF INF 3
+create_atoms 1 region substrate
+
+pair_style   hybrid/overlay comb3 polar_off airebo 3.0
+pair_coeff   * * comb3 ffield.comb3 Cu C
+pair_coeff   2 2 none
+pair_coeff   * * airebo CH.airebo NULL C
+#fix          q2 all qeq/comb 10 1.0e-3 # file fq.out
+
+mass         1 63.546  # Cu
+mass         2 12.0107 # C
+
+neigh_modify delay 0
+#neighbor     0.5 bin
+#neigh_modify every 1 delay 1 check yes 
+
+group        addatoms type 2
+region       mobile block 0 5 0 5 2 INF
+group        mobile region mobile
+
+compute      add addatoms temp
+compute_modify add dynamic/dof yes extra/dof 0
+
+fix          1 addatoms nve
+fix          2 mobile langevin 1573.0 1273.0 $(100*dt) 123456
+fix          3 mobile nve
+
+region       slab block 0 5 0 5 8 9
+fix          4 addatoms deposit 500 2 1000 12345 region slab near 1.0 &
+                vz -1.0 -1.0
+fix          5 addatoms wall/reflect zhi EDGE
+
+thermo_style custom step atoms temp epair etotal press
+thermo       100
+thermo_modify temp add
+
+dump         d1 all cfg 100 cfg/run.*.cfg mass type xs ys zs id type
+dump_modify  d1 element Cu C
+
+variable        Energy equal etotal
+variable        Temperature equal temp
+variable        Pressure equal press
+fix             fout1 all ave/time 1 100 100 v_Energy v_Temperature v_Pressure file out_energy.txt
+
+run          500000
+
+# ----- Output restart data -----
+write_data gcmc_restart.data
